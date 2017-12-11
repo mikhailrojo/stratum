@@ -1,6 +1,7 @@
 const {getMerkleRoot, doubleSha, changeEndianness} = require('./helper');
 
 module.exports = function (data, difficulty, extraNonce1) {
+	console.log(data);
 	[
 		jobId,
 		previousBlockHash,

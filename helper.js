@@ -1,5 +1,4 @@
 const MerkleTree = require('m-tree');
-//const {sha256} = require('js-sha256');
 const shaLib = require('sha.js');
 
 const sha256 = (data) => shaLib('sha256').update(data).digest();
