@@ -20,7 +20,7 @@ s.on('data', function (data) {
 			return null
 		}
 	}).filter(i => i)
-
+	processResponse(msgArr);
 })
 
 function processResponse (arr) {
