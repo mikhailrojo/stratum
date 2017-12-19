@@ -1,7 +1,12 @@
-const {getMerkleRoot, doubleSha, changeEndianness} = require('./helper');
+const {
+	getMerkleRoot,
+	doubleSha,
+	changeEndianness,
+	convertBitconHexDifficultyToDecimal
+} = require('./helper');
 
 module.exports = function (data, difficulty, extraNonce1) {
-	console.log(data);
+	cl(data);
 	[
 		jobId,
 		previousBlockHash,
@@ -21,10 +26,8 @@ module.exports = function (data, difficulty, extraNonce1) {
 		+ extraNonce2
 		+ coinb2;
 
-	let merkle = getMerkleRoot(coinbaseHash, merklebranch);
+	let merkle = getMerkleRoot(merklebranch);
 
-	//version + prevhash + merkle_root + ntime + nbits + '00000000' +
-	// '000000800000000000000000000000000000000000000000000000000000000000000000000000000000000080020000'
 	const nonce = '00000000';
 	const header = version
 		+ previousBlockHash
@@ -32,11 +35,17 @@ module.exports = function (data, difficulty, extraNonce1) {
 		+ ntime
 		+ nbits
 		+ nonce;
-	//	+ '000000800000000000000000000000000000000000000000000000000000000000000000000000000000000080020000';
 
-	let result = doubleSha(header);
+	let result = parseInt(`0x${doubleSha(header)}`);
+	const difficultyNumber = parseInt(`0x${nbits}`);
+	const targetNumber = convertBitconHexDifficultyToDecimal(difficultyNumber)
+	cl('Target  => ' + targetNumber);
+	cl('result  => ' + result);
+
+
 	while (result > target)  {
-		result = doubleSha(header + 1);
+		result = parseInt(`0x${doubleSha(header + 1)}`);
+		cl('Result => ' + result );
 	}
 
 

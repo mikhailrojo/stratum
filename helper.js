@@ -18,8 +18,21 @@ const changeEndianness = (string) => {
 	return result.join('');
 };
 
+// '18009645'
+const convertBitconHexDifficultyToDecimal = (difficulty) => {
+	const first2bits = difficulty >> 24;
+	const lastBits = difficulty & 0x00ffffff;
+	const powInt = first2bits - 3;
+
+	return lastBits * 256 ** powInt;
+}
+
+const convertToHex = (number) => number.toString(16);
+
+
 module.exports = {
 	getMerkleRoot,
 	doubleSha,
-	changeEndianness
+	changeEndianness,
+	convertBitconHexDifficultyToDecimal
 };

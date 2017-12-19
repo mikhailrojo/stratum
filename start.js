@@ -19,7 +19,8 @@ module.exports = function (data) {
 			break;
 		}
 		case 'mining.notify': {
-			notify(params, difficulty, extraNonce1);
+			const notifyMe = notify(params, difficulty, extraNonce1);
+			cl(notifyMe); // [ 'mikhailrojo', '129d7f', '00000000', '5a391363', '00000000' ]
 			break;
 		}
 	}
